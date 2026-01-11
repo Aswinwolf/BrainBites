@@ -9,7 +9,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <h1>AI Wiki Quiz Generator</h1>
+      <h1>BrainBites</h1>
 
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
