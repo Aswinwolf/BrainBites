@@ -1,0 +1,76 @@
+{
+  "quiz_id": 13,
+  "quiz_title": "React (Software) Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "React is primarily used for building which part of a web application?",
+      "options": [
+        "Database layer",
+        "Server-side logic",
+        "User interface",
+        "Operating system"
+      ],
+      "correct_answer": "User interface",
+      "difficulty": "easy",
+      "explanation": "React is a JavaScript library developed by Meta for building user interfaces, especially single-page applications.",
+      "related_topics": ["Front-end development", "JavaScript libraries", "UI frameworks"]
+    },
+    {
+      "id": 2,
+      "question": "Which company originally developed and maintains React?",
+      "options": [
+        "Google",
+        "Microsoft",
+        "Meta (Facebook)",
+        "Amazon"
+      ],
+      "correct_answer": "Meta (Facebook)",
+      "difficulty": "easy",
+      "explanation": "React was developed by Facebook (now Meta) and is maintained by Meta and the open-source community.",
+      "related_topics": ["Open-source software", "Web technologies"]
+    },
+    {
+      "id": 3,
+      "question": "What feature of React allows developers to build reusable pieces of UI?",
+      "options": [
+        "Modules",
+        "Components",
+        "Templates",
+        "Packages"
+      ],
+      "correct_answer": "Components",
+      "difficulty": "easy",
+      "explanation": "React applications are built using components, which are reusable and independent pieces of UI.",
+      "related_topics": ["Component-based architecture", "Reusable code"]
+    },
+    {
+      "id": 4,
+      "question": "Which concept in React is used to manage data that changes over time within a component?",
+      "options": [
+        "Props",
+        "State",
+        "Hooks",
+        "Middleware"
+      ],
+      "correct_answer": "State",
+      "difficulty": "medium",
+      "explanation": "State is used to store and manage data that can change during the lifecycle of a component.",
+      "related_topics": ["State management", "React hooks"]
+    },
+    {
+      "id": 5,
+      "question": "Which hook is commonly used to perform side effects such as data fetching in React?",
+      "options": [
+        "useState",
+        "useEffect",
+        "useContext",
+        "useReducer"
+      ],
+      "correct_answer": "useEffect",
+      "difficulty": "medium",
+      "explanation": "The useEffect hook allows developers to perform side effects like API calls, subscriptions, and DOM updates.",
+      "related_topics": ["React hooks", "Side effects", "Lifecycle methods"]
+    }
+  ]
+}

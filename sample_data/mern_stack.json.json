@@ -1,0 +1,51 @@
+{
+  "quiz_id": 12,
+  "quiz_title": "MEAN (solution stack) Quiz",
+  "questions": [
+    {
+      "id": 58,
+      "question": "The MEAN stack is primarily defined as a software stack built using which programming language?",
+      "options": ["Python", "Java", "JavaScript", "C#"],
+      "correct_answer": "JavaScript",
+      "difficulty": "easy",
+      "explanation": "The summary states that MEAN is a \"source-available JavaScript software stack.\"",
+      "related_topics": ["JavaScript", "Software stacks", "Web development"]
+    },
+    {
+      "id": 57,
+      "question": "What are the four core components represented by the acronym MEAN?",
+      "options": ["MySQL, Ember.js, Apache, Node.js", "MongoDB, Express.js, AngularJS (or Angular), Node.js", "Microsoft SQL Server, Express.js, Angular, Nginx", "MongoDB, Express.js, Apache, Next.js"],
+      "correct_answer": "MongoDB, Express.js, AngularJS (or Angular), Node.js",
+      "difficulty": "easy",
+      "explanation": "The summary explicitly defines MEAN as standing for MongoDB, Express.js, AngularJS (or Angular), and Node.js.",
+      "related_topics": ["MEAN stack", "Acronyms", "Software components"]
+    },
+    {
+      "id": 59,
+      "question": "In the MERN variation of the stack, which component replaces Angular as the front-end framework?",
+      "options": ["MongoDB", "Express.js", "React.js", "Vue.js"],
+      "correct_answer": "React.js",
+      "difficulty": "medium",
+      "explanation": "The summary notes that \"A variation known as MERN replaces Angular with React.js front-end.\"",
+      "related_topics": ["MERN stack", "Front-end frameworks", "React.js", "Stack variations"]
+    },
+    {
+      "id": 60,
+      "question": "Which front-end framework is utilized when the stack is referred to by the variation MEVN?",
+      "options": ["Node.js", "Express.js", "Vue.js", "AngularJS"],
+      "correct_answer": "Vue.js",
+      "difficulty": "medium",
+      "explanation": "The summary states that \"another named MEVN use Vue.js as front-end.\"",
+      "related_topics": ["MEVN stack", "Vue.js", "Front-end development"]
+    },
+    {
+      "id": 61,
+      "question": "What is the primary purpose of the MEAN software stack, according to the summary?",
+      "options": ["Building embedded systems firmware", "Creating desktop operating systems", "Building dynamic web sites and web applications", "Developing machine learning models"],
+      "correct_answer": "Building dynamic web sites and web applications",
+      "difficulty": "easy",
+      "explanation": "The summary states the stack is used \"for building dynamic web sites and web applications.\"",
+      "related_topics": ["Web applications", "Software stack purpose", "Dynamic websites"]
+    }
+  ]
+}

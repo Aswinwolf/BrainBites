@@ -1,0 +1,148 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv() 
+
+from fastapi import FastAPI, HTTPException, Depends
+from pydantic import BaseModel, HttpUrl
+from sqlalchemy.orm import Session
+
+from services.scraper import WikiScraper
+from services.quiz_generator import generate_quiz
+
+from app.core.database import SessionLocal, engine
+from app.models.article import WikipediaArticle
+from app.models.quiz import Quiz
+from app.models.question import Question
+from app.core.database import Base
+
+from fastapi.middleware.cors import CORSMiddleware
+
+
+from routes_history import router as history_router
+
+# create tables if not exist
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="AI Wiki Quiz Generator")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
+class WikiRequest(BaseModel):
+    url: HttpUrl
+    num_questions: int = 5
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@app.get("/")
+def read_root():
+    return {"status": "Scraping API is running"}
+
+
+@app.post("/generate-quiz")
+def generate_quiz_api(request: WikiRequest, db: Session = Depends(get_db)):
+    try:
+        # 1. SCRAPE
+        scraper = WikiScraper(str(request.url))
+        article_data = scraper.parse()
+
+        # 2. SAVE / GET ARTICLE
+        article = db.query(WikipediaArticle).filter_by(url=str(request.url)).first()
+        if not article:
+            article = WikipediaArticle(
+                url=str(request.url),
+                title=article_data["title"],
+                summary=article_data["summary"]
+            )
+            db.add(article)
+            db.commit()
+            db.refresh(article)
+
+        # 3. GENERATE QUIZ
+        quiz_data = generate_quiz(article_data, request.num_questions)
+
+        # 4. SAVE QUIZ
+        quiz = Quiz(
+            article_id=article.id,
+            quiz_title=quiz_data["quiz_title"]
+        )
+        db.add(quiz)
+        db.commit()
+        db.refresh(quiz)
+
+        # 5. SAVE QUESTIONS
+        for q in quiz_data["questions"]:
+            question = Question(
+                quiz_id=quiz.id,
+                question=q["question"],
+                options=q["options"],
+                correct_answer=q["correct_answer"],
+                difficulty=q["difficulty"],
+                explanation=q["explanation"],
+                related_topics=q["related_topics"]
+            )
+            db.add(question)
+
+        db.commit()
+
+        return {
+            "quiz_id": quiz.id,
+            **quiz_data
+        }
+
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/quiz/{quiz_id}")
+def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
+    quiz = db.query(Quiz).filter_by(id=quiz_id).first()
+    if not quiz:
+        return {"error": "Quiz not found"}
+
+    questions = db.query(Question).filter_by(quiz_id=quiz_id).all()
+
+    return {
+        "quiz_id": quiz.id,
+        "quiz_title": quiz.quiz_title,
+        "questions": [
+            {
+                "id": q.id,
+                "question": q.question,
+                "options": q.options,
+                "correct_answer": q.correct_answer,
+                "difficulty": q.difficulty,
+                "explanation": q.explanation,
+                "related_topics": q.related_topics
+            }
+            for q in questions
+        ]
+    }
+
+
+# register history route
+app.include_router(history_router)
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise RuntimeError("GEMINI_API_KEY is missing in .env file")
+

@@ -1,0 +1,48 @@
+{
+  "quiz_id": 1,
+  "quiz_title": "Artificial Intelligence Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Artificial intelligence (AI) is defined as the capability of computational systems to perform tasks typically associated with which type of intelligence?",
+      "options": [
+        "Animal intelligence",
+        "Human intelligence",
+        "Quantum intelligence",
+        "Biological intelligence"
+      ],
+      "correct_answer": "Human intelligence",
+      "difficulty": "easy",
+      "explanation": "AI is defined as the capability of computational systems to perform tasks typically associated with human intelligence, such as learning and reasoning.",
+      "related_topics": ["Definition of AI", "Core concepts"]
+    },
+    {
+      "id": 2,
+      "question": "According to the summary, what is the ultimate purpose of the actions taken by machines utilizing learning and intelligence?",
+      "options": [
+        "To minimize the consumption of energy resources",
+        "To maximize their chances of achieving defined goals",
+        "To accurately replicate the human brain's neural structure",
+        "To generate complex, unpredictable outcomes"
+      ],
+      "correct_answer": "To maximize their chances of achieving defined goals",
+      "difficulty": "medium",
+      "explanation": "AI enables machines to take actions that maximize their chances of achieving defined goals.",
+      "related_topics": ["Goals", "Planning and decision-making"]
+    },
+    {
+      "id": 3,
+      "question": "Which of the following is identified as a specific technique used within the field of Artificial Intelligence?",
+      "options": [
+        "Transhumanism",
+        "Superintelligence",
+        "Deep learning",
+        "Web search"
+      ],
+      "correct_answer": "Deep learning",
+      "difficulty": "easy",
+      "explanation": "Deep learning is a key technique in AI that uses multi-layered neural networks to model complex patterns.",
+      "related_topics": ["Techniques", "Artificial neural networks", "Deep learning"]
+    }
+  ]
+}
