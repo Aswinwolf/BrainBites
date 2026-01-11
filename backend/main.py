@@ -25,14 +25,14 @@ if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY is missing in environment variables")
 
 
-app = FastAPI(title="AI Wiki Quiz Generator")
+app = FastAPI(title="BrainBites API")
 
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",                      
-        "https://ai-wiki-quiz-generator-mu.vercel.app"  
+        "http://localhost:5173",
+        "https://brain-bites-three.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -45,13 +45,18 @@ async def preflight_handler(path: str, request: Request):
     return JSONResponse(status_code=200, content={})
 
 
-Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def on_startup():
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("✅ Database connected and tables created")
+    except Exception as e:
+        print("❌ Database connection failed:", e)
 
 
 class WikiRequest(BaseModel):
     url: HttpUrl
     num_questions: int = 5
-
 
 
 def get_db():
@@ -62,20 +67,18 @@ def get_db():
         db.close()
 
 
-
 @app.get("/")
 def read_root():
     return {"status": "Scraping API is running"}
 
-
 @app.post("/generate-quiz")
 def generate_quiz_api(request: WikiRequest, db: Session = Depends(get_db)):
     try:
-       
+        
         scraper = WikiScraper(str(request.url))
         article_data = scraper.parse()
 
-       
+    
         article = db.query(WikipediaArticle).filter_by(url=str(request.url)).first()
         if not article:
             article = WikipediaArticle(
@@ -87,7 +90,7 @@ def generate_quiz_api(request: WikiRequest, db: Session = Depends(get_db)):
             db.commit()
             db.refresh(article)
 
-       
+     
         quiz_data = generate_quiz(article_data, request.num_questions)
 
         
@@ -99,7 +102,6 @@ def generate_quiz_api(request: WikiRequest, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(quiz)
 
-        
         for q in quiz_data["questions"]:
             question = Question(
                 quiz_id=quiz.id,
@@ -121,10 +123,8 @@ def generate_quiz_api(request: WikiRequest, db: Session = Depends(get_db)):
 
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @app.get("/quiz/{quiz_id}")
 def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
@@ -150,7 +150,6 @@ def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
             for q in questions
         ]
     }
-
 
 
 app.include_router(history_router)
