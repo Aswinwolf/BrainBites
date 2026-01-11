@@ -207,21 +207,6 @@ Go to Past Quizzes tab
 
 Click Details to view saved quizzes
 
-📸 Screenshots Section
-
-Include screenshots of:
-
-Generate Quiz page (before submit)
-
-Generate Quiz page (after result)
-
-History tab
-
-Quiz details modal
-
-Deployed frontend
-
-Backend API test in browser/Postman
 
 🚀 Deployment
 Backend → Render
