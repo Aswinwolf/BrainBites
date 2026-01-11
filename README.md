@@ -6,6 +6,14 @@ The system stores all generated quizzes in a database and allows users to view p
 
 This project is built as part of the DeepKlarity Technologies technical assignment.
 
+🌐 Live Application Links
+
+Frontend (Vercel):
+👉 https://brain-bites-three.vercel.app/
+
+Backend (Render):
+👉 https://brainbites.onrender.com/
+
 🛠 Tech Stack
 Backend
 
@@ -189,19 +197,21 @@ Response:
   "questions": [...]
 }
 
-🧪 How to Test
+🧪 How to Test (Using Live App)
 
-Start backend and frontend
-
-Open frontend in browser
+Open the frontend:
+👉 https://brain-bites-three.vercel.app/
 
 Go to Generate Quiz tab
 
-Enter Wikipedia URL
+Enter a Wikipedia URL (example):
+
+https://en.wikipedia.org/wiki/Artificial_intelligence
+
 
 Click Generate Quiz
 
-View results
+View quiz results
 
 Go to Past Quizzes tab
 
@@ -215,13 +225,16 @@ Push backend to GitHub
 
 Create new Web Service in Render
 
-Connect repo
+Connect repository
 
 Set:
 
 Build command: pip install -r requirements.txt
 
-Start command: uvicorn main:app --host 0.0.0.0 --port 10000
+Start command:
+
+uvicorn main:app --host 0.0.0.0 --port 10000
+
 
 Add environment variables:
 
@@ -229,17 +242,24 @@ DATABASE_URL
 
 GEMINI_API_KEY
 
+Deploy and test:
+
+https://brainbites.onrender.com/docs
+
 Frontend → Vercel
 
 Push frontend to GitHub
 
 Import project in Vercel
 
-Set environment variable:
+Add environment variable:
 
-VITE_API_BASE_URL = deployed backend URL
+VITE_API_BASE_URL=https://brainbites.onrender.com
 
-Deploy
+
+Deploy and test:
+
+https://brain-bites-three.vercel.app/
 
 🧠 LangChain Prompt Templates
 Quiz Generation Prompt
